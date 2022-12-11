@@ -2,97 +2,98 @@ import telebot
 import requests
 import bs4
 import lxml
-
+#bot.infinity_polling()
+#bot.polling(none_stop = True)
 
 bot = telebot.TeleBot("TOKEN", parse_mode=None)
 
 # BTC
 def get_BTC():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/bitcoin/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/bitcoin/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # ETH
 def get_ETH():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/ethereum/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/ethereum/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # USDT
 def get_USDT():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/tether/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/tether/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # BNB
 def get_BNB():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/bnb/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/bnb/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # BUSD
 def get_BUSD():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/binance-usd/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/binance-usd/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # DOGE
 def get_DOGE():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/dogecoin/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/dogecoin/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # ADA
 def get_ADA():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/cardano/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/cardano/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
-# TRX  FIX
+# TRX 
 def get_TRX():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/tron/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/tron/markets/')
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # MATIC
 def get_MATIC():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/polygon/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/polygon/markets/',)
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
 # SOL
 def get_SOL():
-    link = 'https://coinmarketcap.com'
+    link = 'https://coinmarketcap.com/currencies/solana/'
     responce = requests.get(link).text
     soup = bs4.BeautifulSoup(responce, 'lxml')
-    block = soup.find('a', href='/currencies/polygon/markets/',)
+    block = soup.find('div',"priceValue")
     status_data_block = block.find('span').text
     return status_data_block
 
@@ -171,5 +172,6 @@ def bot_message(message):
 #    bot.reply_to(message, message.text)
 #
 
+
 bot.infinity_polling()
-#bot.polling(none_stop = True)
+bot.polling(none_stop = True)
