@@ -5,8 +5,8 @@ from enum import Enum
 # Creating dir for files
 class TargetDir(str, Enum):
     GCC = 'gcc-compiler'
-    CLANG = 'clang-compiler'
     TCC = 'tcc-compiler'
+    CLANG = 'clang-compiler'
 
 # Classification of programs
 class LabPrefix(str, Enum):
