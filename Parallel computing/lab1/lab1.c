@@ -19,12 +19,6 @@ void stupid_sort(double *arr2, int M2){
         }
 }
 
-void print_arr(double *arr, int n) {
-    for (int i = 0; i < n; ++i){
-        printf("%f ", arr[i]);
-    }
-    printf("\n");
-}
 
 int main(int argc, char *argv[]) {
     unsigned int M1, M2;
