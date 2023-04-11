@@ -44,7 +44,7 @@ export LD_LIBRARY_PATH="$PWD/FW_1.3.1_Lin64/lib"
 sudo apt-get update
 sudo apt-get install -y clang
 ```
-2. Установить `Python-3.8 +`
+2. Установить `Python-3.20`
 ```
 sudo apt-get install -y python3 python3-pip
 pip install -r requirements.txt
