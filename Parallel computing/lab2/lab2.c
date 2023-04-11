@@ -106,7 +106,7 @@ int main(int argc, char *argv[]) {
         fwsDivC_32f(arr2, arr2min, arr2Coppy, M2);
 
         for(int i = 0; i < M2; i++){
-            if((int)arr2Coppy % 2 == 0) {
+            if((int)arr2Coppy[i] % 2 == 0) {
                 arr2reduce[i] = arr2Coppy[i];
             }
         }
