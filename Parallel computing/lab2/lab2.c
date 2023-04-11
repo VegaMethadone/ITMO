@@ -21,7 +21,7 @@ void swap(Fw32f *x, Fw32f *y){
 void stupid_sort(Fw32f *arr2, int M2) {
     for(int i = 0; i < M2 - 1; i++){
         if(arr2[i] > arr2[i+1]){
-            swap(arr2[i], arr2[i+1];
+            swap(arr2[i], arr2[i+1]);
             i = 0;
         }
         else{
