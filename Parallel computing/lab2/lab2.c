@@ -3,7 +3,7 @@
 #include "stdlib.h"
 #include "sys/time.h"
 #include "time.h"
-#include <FW_1.3.1_Lin64/fwSignal.h>
+#include "FW_1.3.1_Lin64/fwSignal.h"
 #include "FW_1.3.1_Lin64/fwBase.h"
 
 
@@ -21,7 +21,7 @@ void swap(Fw32f *x, Fw32f *y){
 void stupid_sort(Fw32f *arr2, int M2) {
     for(int i = 0; i < M2 - 1; i++){
         if(arr2[i] > arr2[i+1]){
-            swap(arr2[i], arr2[i+1]);
+            swap(&arr2[i], &arr2[i+1]);
             i = 0;
         }
         else{
@@ -70,7 +70,7 @@ int main(int argc, char *argv[]) {
         
         // Creating a coppy of the second array for the map creating stage by using Framewave(FW)
         Fw32f *restrict arr2Coppy = fwsMalloc_32f(M2);
-        fwsCopy_32f(arr2, arr2Coppy, M2)
+        fwsCopy_32f(arr2, arr2Coppy, M2);
 
 
 
@@ -78,15 +78,16 @@ int main(int argc, char *argv[]) {
         fwsSqrt_32f(arr1, arr1, M1);  // root 
         fwsTanh_32f_A24(arr1, arr1, M1); // Arc Tanges
         fwsDivCRev_32f(arr1, 1, arr1, M1); // swap Arc tanges
-       
+      
+        Fw32f Pi = 3.14159265;
         // Modify the second array using M_PI and cbtrf
-        fwlAdd_32f_C4IR(arr2Coppy, arr2Coppy, arr2, arr2, M2); // arr2[i] = arr2[i] + arr2Coppy[i]
-        fwlMul_32f_C4IR(arr2, M_PI, arr2, M2); // arr2[i] *= M_PI
+        fwsAdd_32f(arr2 + 1, arr2Coppy, arr2 + 1, M2 - 1); // arr2[i] = arr2[i] + arr2Coppy[i]
+        fwsMul_32f(arr2, &Pi, arr2, M2); // arr2[i] *= M_PI
         fwsCbrt_32f_A24(arr2, arr2, M2); // arr2[i] = cbrt(arr2[i])
         
         
         // Stage 3 Merge multiply
-        fwlMul_32f_C4IR(arr1, arr1, arr2, M2); 
+        fwsMul_32f(arr1, arr1, arr2, M2); 
        
        
         // Stage 4 - Stupid sort
@@ -99,10 +100,10 @@ int main(int argc, char *argv[]) {
         Fw32f arr2min;
         Fw64f sum = 0;
 
-        fwsMin(arr2, M2, &arr2min);
+        fwsMin_32f(arr2, M2, &arr2min);
 
-        fwsZero(arr2Coppy, M2);
-        fwsZero(arr2reduce, M2);
+        fwsZero_32f(arr2Coppy, M2);
+        fwsZero_64f(arr2reduce, M2);
         fwsDivC_32f(arr2, arr2min, arr2Coppy, M2);
 
         for(int i = 0; i < M2; i++){
@@ -121,6 +122,7 @@ int main(int argc, char *argv[]) {
     printf("\n%ld\n", delta_ms);
     return 0;
 }
+
 
 
 
