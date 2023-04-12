@@ -80,9 +80,9 @@ district text not null
 Создание базы данных PostgresSQL
 
 ```sql
-CREATE DATABASE bank
+CREATE DATABASE bank;
 
-USE bank
+USE bank;
 CREATE TABLE Person (
     id serial primary key,
     first_name text not null,
