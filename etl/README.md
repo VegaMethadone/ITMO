@@ -61,7 +61,7 @@ docker pull mongo
 ```
 
 
-#Создание базы данных для MySQl 
+Создание базы данных для MySQl 
 
 ```sql
 CREATE DATABASE wallet_owner;
@@ -77,7 +77,7 @@ district text not null
 );
 ```
 
-#Создание базы данных PostgresSQL
+Создание базы данных PostgresSQL
 
 ```sql
 CREATE DATABASE bank
