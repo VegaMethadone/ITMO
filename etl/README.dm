@@ -36,3 +36,4 @@ create table Wallet (
     amount int not null,
     amount_usd int not null
 )`
+```
