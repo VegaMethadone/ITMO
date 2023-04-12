@@ -18,7 +18,7 @@ var global int = 1
 var Symbols = []string{"!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "№", ";", ":", "?", "/", "[", "]", "{", "}"}
 
 func RandNumber(arr []string) int {
-	randomizer := rand.Intn(len(arr)-0) + 0
+	randomizer := rand.Intn(len(arr))  
 	return randomizer
 }
 
