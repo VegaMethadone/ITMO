@@ -36,13 +36,13 @@ sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin 
 sudo docker run hello-world
 ```
 
-#Установка Docker linux: 
+Установка Docker linux: 
 ```shell
 sudo apt-get update
 sudo apt-get install ./docker-desktop-<version>-<arch>.deb
 ```
 
-#Запуск Docker DeskTop:
+Запуск Docker DeskTop:
 ```shell
 systemctl --user start docker-desktop
 ```
