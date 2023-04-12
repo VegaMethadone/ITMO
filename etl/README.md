@@ -10,52 +10,52 @@ sudo apt-get install \
     curl \
     gnupg
 ```
-Добавьте официальный GPG-ключ Docker:
+Добавление официального GPG-ключа Docker:
 
 ```shell
 sudo mkdir -m 0755 -p /etc/apt/keyrings
 curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 ```
-Use the following command to set up the repository:
+Настрока репозитория:
 ```shell
 echo \
   "deb [arch="$(dpkg --print-architecture)" signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
   "$(. /etc/os-release && echo "$VERSION_CODENAME")" stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 ```
-Обновление apt пакета
+Обновление apt пакета:
 ```shell
 sudo apt-get update
 ```
-Установка Docker Engine, контейнер и Docker Compose
+Установка Docker Engine, контейнер и Docker Compose:
 ```shell
 sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
-Верификация Docker-Engine 
+Верификация Docker-Engine: 
 ```shell
 sudo docker run hello-world
 ```
 
-#Установка Docker linux 
+#Установка Docker linux: 
 ```shell
 sudo apt-get update
 sudo apt-get install ./docker-desktop-<version>-<arch>.deb
 ```
 
-#Запуск Docker DeskTop
+#Запуск Docker DeskTop:
 ```shell
 systemctl --user start docker-desktop
 ```
 
-Установка Postgres Docker Image
+Установка Postgres Docker Image:
 ```shell
 docker pull postgres
 ```
-Установка MySQL Docker Image
+Установка MySQL Docker Image:
 ```shell
 docker pull mysql
 ```
-Установка MongoDB Docker Image
+Установка MongoDB Docker Image:
 ```shell
 docker pull mongo
 ```
