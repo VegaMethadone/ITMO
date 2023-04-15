@@ -10,4 +10,4 @@ class BlogSpider(scrapy.Spider):
       yield {'article_link': article.xpath('@href').get()}
      
 
- ##   scrapy runspider main.py -o links.json 
+ ##   scrapy runspider spider.py -o links.json 
