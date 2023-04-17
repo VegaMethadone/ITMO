@@ -29,11 +29,12 @@ def main():
     try:
         for target in TargetDir:
             print(target)
-            for prefix in LabPrefix.NO_PARALLEL:
-                print(prefix)
-                result[target.name] = {}
-                result[target.name]['1000'] = bin_search(arr, 1000, -1, len(arr)-1, target, prefix)
-                result[target.name]['5000'] = bin_search(arr, 5000, -1, len(arr)-1, target, prefix)
+            for prefix in LabPrefix:
+                if prefix == LabPrefix.NO_PARALLEL:
+                    print(prefix)
+                    result[target.name] = {}
+                    result[target.name]['1000'] = bin_search(arr, 1000, -1, len(arr)-1, target, prefix)
+                    result[target.name]['5000'] = bin_search(arr, 5000, -1, len(arr)-1, target, prefix)
     except KeyboardInterrupt:
         pass
 
