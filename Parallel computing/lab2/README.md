@@ -48,19 +48,8 @@ sudo apt-get install -y clang
 2. Установить `Python-3.20`
 ```
 sudo apt-get install -y python3 python3-pip
-pip install -r requirements.txt
 ```
-3. Сборка эксперементальных билдов
+3. Собрать файл
 ```
-python build.py
-```
-
-4. Подборка входных данных по времени выполнения для эксперементальных запуск
-```
-python compute_n_for_run.py
-```
-
-5. Запуск эксперимента и генерация графиков
-```
-python run.py
+build.py
 ```
