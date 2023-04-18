@@ -44,13 +44,11 @@ int main(int argc, char *argv[]) {
     M2 = M1 / 2;
     A = 100;
     const unsigned int  N = atoi(argv[2]);
-
-    
+    fwSetNumThreads(N);
+ 
     for(unsigned int k = 0; k < 100; k++) {
       
         unsigned int seed = k;
-
-        fwSetNumThreads(N);
 
         // Stage 1 Generation - Creating the first array
         Fw32f *restrict arr1 = fwsMalloc_32f(M1);
