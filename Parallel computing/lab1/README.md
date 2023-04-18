@@ -1,12 +1,13 @@
-1. Обнавляем менеджер пакетов
+
+1. Обновляем менеджер пакетов
 ```
 sudo apt-get update
 ```
-Установка компиляторов gcc, tcc, clang
+Установка компиляторов gcc, gcc, clang
 ```
 sudo apt-get install gcc
-sudo apt-get install tcc
-sudo apt-get install clang
+sudo apt-get install gcc
+sudo apt-get install clean
 ```
 Компилируем получившуюся программу на С
 ```
@@ -14,17 +15,18 @@ python3 build.py
 ```
 Вычисляем N1 && N2 массива для NO_PARALLEL программ, такой, что N1 = 1000, N2 = 5000
 ```
-python3 noparallel.py
+python 3 noparallel.py
 ```
 Находим N△, такой, что (N2 - N1) / 10 ---> ((N1 + N△) + N△) + N△ ..... + N△ = N2
 ```
-python3 paralleling.py
+python 3 paralleling.py
 ```
-Запускаем для компиляторов c разными параметрами использовавания ядер для всех Ni, ~~где Ni ∈ N[((N1 + N△) + N△) + N△ ..... + N△]~~, чтобы вычеслить время испольнения программы для разного количества ядер и размеров массива
+Запускаем программу для всех компиляторов c разными параметрами использования ядер для всех Ni, ~~где Ni = N[((N1 + N°) + N°) + N° ..... + N°]~~, 
+чтобы вычислить время испольнения программы
 ```
-python3 timing.py
+python 3 timing.py
 ```
 Строим по полученным данным графики производительности автоматического распараллеливания
 ```
-python3 graph.py
+python 3 graph.py
 ```
