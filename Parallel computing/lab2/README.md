@@ -53,3 +53,5 @@ sudo apt-get install -y python3 python3-pip
 ```
 build.py
 ```
+4. Скопировать файл из lab1 с json  файлом n_nonfig.json в рабочую дерикторию 
+```
