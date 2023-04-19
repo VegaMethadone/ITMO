@@ -31,9 +31,6 @@ ln -sf ./libfwVideo.so.1.3.1 libfwVideo.so.1
 ```
 4. При компиляции выставить ключи
 ```shell
-g++ -m64 -c -IFW_1.3.1_Lin64 test.cpp
-clang -m64 -c -IFW_1.3.1_Lin64 main.c
-     
 clang -LFW_1.3.1_Lin64/lib -o lab2 main.c -lm -lfwSignal -lfwBase
 export LD_LIBRARY_PATH="$PWD/FW_1.3.1_Lin64/lib"
 ```
@@ -48,19 +45,16 @@ sudo apt-get install -y clang
 2. Установить `Python-3.20`
 ```
 sudo apt-get install -y python3 python3-pip
-pip install -r requirements.txt
 ```
 3. Сборка эксперементальных билдов
 ```
-python build.py
+python3 build.py
 ```
-
-4. Подборка входных данных по времени выполнения для эксперементальных запуск
+4. Запуск эксперимента
 ```
-python compute_n_for_run.py
+python3 run.py
 ```
-
-5. Запуск эксперимента и генерация графиков
+5. Генерация графиков
 ```
-python run.py
-```
+python3 graph.py
+``` 
