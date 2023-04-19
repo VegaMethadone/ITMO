@@ -33,6 +33,8 @@ ln -sf ./libfwVideo.so.1.3.1 libfwVideo.so.1
 ```shell
 clang -LFW_1.3.1_Lin64/lib -o lab2 main.c -lm -lfwSignal -lfwBase
 export LD_LIBRARY_PATH="$PWD/FW_1.3.1_Lin64/lib"
+
+$ LD_LIBRARY_PATH="$PWD/FW_1.3.1_Lin64/lib" ./target-clang/lab-2 <size> <cores>
 ```
 
 ### Проведение эксперимента
