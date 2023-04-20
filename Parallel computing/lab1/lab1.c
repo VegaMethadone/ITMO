@@ -44,7 +44,6 @@ int main(int argc, char *argv[]) {
             arr1[j] = (rand_r(&seed) % (A * 100)) / 100.0 + 1;
         }
         
-        
         // Creating the second array
         double *restrict arr2 = malloc(M2 * sizeof(double));
         arr2[0] = arr1[M1 - 1];
@@ -52,24 +51,18 @@ int main(int argc, char *argv[]) {
             arr2[j] = A + rand_r(&seed) % (A * 9);
         }
         
-        
-        
         // Creating a coppy of the second array for the map creating stage
         double *restrict arr2Coppy = malloc(M2  * sizeof(double));
         for(int i = 0; i < M2; i++){
             arr2Coppy[i] = arr2[i];
         }
 
-
-
         // Stage 2 - Map creating by using sqrtf and cth
         for(int i = 0; i < M1; i++){
             double tmp = arr1[i];
             tmp = sqrt(tmp);
             arr1[i] = cosh(tmp) / sinh(tmp);
-        }
-       
-       
+        }       
        
         // Modify the second array using M_PI and cbtrf
         for(int i = 1; i < M2; i++){
@@ -77,22 +70,17 @@ int main(int argc, char *argv[]) {
             tmp *= M_PI;
             arr2[i] = cbrt(tmp);
         }
-        arr2[0] = cbrt(arr2[0]*M_PI);
-        
-        
+        arr2[0] = cbrt(arr2[0]*M_PI);             
         
         // Stage 3 Merge multiply
         for(int i = 0; i < M2; i++){
             double tmp = arr1[i] * arr2[i];
             arr2[i] = tmp;
         }
-       
-       
-       
+                   
         // Stage 4 - Stupid sort
         stupid_sort(arr2, M2);
-       
-       
+            
         // Stage 5 Reduce
         double sum = 0;
         double min = arr2[0];
@@ -110,19 +98,3 @@ int main(int argc, char *argv[]) {
     printf("\n%ld\n", delta_ms);
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
