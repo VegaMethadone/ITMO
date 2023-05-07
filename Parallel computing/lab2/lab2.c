@@ -117,7 +117,7 @@ int main(int argc, char *argv[]) {
         //print(arr1, M2);
        
         // Stage 4 - Stupid sort
-        stupid_sort(arr2, M2);
+        //stupid_sort(arr2, M2);
         //printf("%s\n", " Sort");
         //print(arr2, M2);
        
