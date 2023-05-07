@@ -52,15 +52,15 @@ pip install -r requirements.txt
 ```
 3. Сборка эксперементальных билдов
 ```
-python build.py
+python3 build.py
 ```
 
-4. Подборка входных данных по времени выполнения для эксперементальных запуск
+4. Запуск эксперементов
 ```
-python compute_n_for_run.py
+python3 run.py
 ```
 
-5. Запуск эксперимента и генерация графиков
+5. Создание графиков
 ```
-python run.py
+python3 graph.py
 ```
