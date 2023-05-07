@@ -38,25 +38,35 @@ export LD_LIBRARY_PATH="$PWD/FW_1.3.1_Lin64/lib"
 ### Проведение эксперимента
 
 1. Установить компилятор *clang*
-```
+```shell
 sudo apt-get update
 sudo apt-get install -y clang
 ```
 2. Установить `Python-3.20`
-```
+```shell
 sudo apt-get install -y python3 python3-pip
 ```
 3. Сборка эксперементальных билдов
-```
+```shell
 python3 build.py
 ```
 
 4. Запуск эксперементов
-```
+```shell
 python3 run.py
 ```
 
 5. Создание графиков
-```
+```shell
 python3 graph.py
+```
+
+6. Сoздание графика накладных расходов
+```shell
+python3 parallel_naklad.py
+```
+
+7. Расчет закона амделя и создание графика
+```shell
+python3 amdel.py
 ```
