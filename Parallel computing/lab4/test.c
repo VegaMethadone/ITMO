@@ -50,18 +50,18 @@ void stupid_sort(double *array, int l, int r) {
 
 //stupid sort for dynamic
 void dynamic_stupid_sort(double *array, int n) {
-    print_arr(array, n);
+    //print_arr(array, n);
     int i = 0;
     while (i < n - 1) {
         if (array[i + 1] < array[i]) swap(array + i, array + i + 1), i = 0;
         else i++;
     }
-    print_arr(array, n);
+    //print_arr(array, n);
 }
 
 //merge section
 void merge(double *arr, int n){
-    print_arr(arr, n);
+    //print_arr(arr, n);
     double arr1 [n/2];
     double arr2 [n - n/2];
 
@@ -104,7 +104,7 @@ void merge(double *arr, int n){
         r += 1;
         current += 1;
     }
-    print_arr(arr, n);
+    //print_arr(arr, n);
     
 }
 
@@ -139,18 +139,18 @@ void dynamic_merge(double *arr, int done, int will_done, int current_chunk){
     for(int i = 0; i < done; i++){
         arr1[i] = arr[i];
     }
-    printf("\nArr1 is: \n");
-    print_arr(arr1, done);
+    //printf("\nArr1 is: \n");
+    //print_arr(arr1, done);
 
 
     int current = 0;
     for(int i = done; i < will_done; i++){
         arr2[current] = arr[i];
         current += 1;
-        printf(" arr[i] = %f", arr[i]);
+        //printf(" arr[i] = %f", arr[i]);
     }
-    printf("\nArr2 is: \n");
-    print_arr(arr2, current_chunk);
+    //printf("\nArr2 is: \n");
+    //print_arr(arr2, current_chunk);
 
 
     int l = 0;
@@ -181,15 +181,15 @@ void dynamic_merge(double *arr, int done, int will_done, int current_chunk){
     }
 
 
-    printf("\nResult is: \n");
-    print_arr(result, done + current_chunk);
+    //printf("\nResult is: \n");
+    //print_arr(result, done + current_chunk);
 
     
     for(int i = 0; i < done + current_chunk; i++){
         arr[i] = result[i];
     }
-    printf("\nArr is: \n");
-    print_arr(arr, done + current_chunk);
+    //printf("\nArr is: \n");
+    //print_arr(arr, done + current_chunk);
 
     free(arr1);
     free(arr2);
@@ -209,7 +209,7 @@ void dynamic_parallel_sort(double *arr, int n, int k_threads){
             chunk_size = n / k_threads;
         }
     }
-    printf("\nChunk size is: %d\n", chunk_size);
+    //printf("\nChunk size is: %d\n", chunk_size);
 
     #pragma omp for
     {
@@ -223,8 +223,8 @@ void dynamic_parallel_sort(double *arr, int n, int k_threads){
             
         }
     }
-    printf("Sorted arr is: \n");
-    print_arr(arr, n);
+    //printf("Sorted arr is: \n");
+    //print_arr(arr, n);
 
     #pragma omp single
     {
@@ -238,8 +238,8 @@ void dynamic_parallel_sort(double *arr, int n, int k_threads){
     }
     
 
-    printf("final arr is : \n");
-    print_arr(arr, n);
+    //printf("final arr is : \n");
+    //print_arr(arr, n);
    
 
 }
@@ -291,7 +291,7 @@ int main(int argc, char *argv[]) {
                 omp_set_num_threads(N);
             #endif
 
-            for(k = 0; k < 1; k++) {
+            for(k = 0; k < 100; k++) {
             
                 double sum __attribute__((unused));
                 sum = 0;
@@ -353,16 +353,13 @@ int main(int argc, char *argv[]) {
                         }
                         
                     }
-                    printf("\nOriginal massive: \n");
-                    print_arr(arr2, M2);
+                    
 
 
                     // Stage 4 - Stupid sort
-                    printf("\nSorted massive: \n");
              
                     int k_threads __attribute__((unused)); 
                     k_threads = omp_get_num_procs();
-                    printf("\nThread is: %d\n", k_threads);
                     if(k_threads == 2) { 
                         parallel_sort(arr2, M2);
                     } else {
@@ -385,7 +382,7 @@ int main(int argc, char *argv[]) {
 
                     #pragma omp barrier
                 }
-                //printf("%f ", sum);
+                printf("%f ", sum);
             }
             progress = 1;
         }
