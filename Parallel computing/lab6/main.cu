@@ -10,9 +10,9 @@
 //#include "cuda_runtime_api.h"
 
 #define M_PI           3.14159265358979323846
-#define DEBUG_MERGE
-#define DEBUG_REDUCE
-#define DEBUG
+//#define DEBUG_MERGE
+//#define DEBUG_REDUCE
+//#define DEBUG
 
 
 
@@ -211,29 +211,11 @@ __global__ void reduceKernel(double *arr2, int M2, float *blockSums){
     printf("Stride is: %d\n", stride);
 #endif
 
-    for(int i = tid; i < M2; i+=stride)
-    {
-        if(((int)arr2[i] / (int)minValue) % 2 == 0)
+    if(tid < M2){
+        if(((int)arr2[tid] / (int)arr2[0]) % 2 == 0)
         {
-            sum += sin(arr2[i]);
-            #ifdef DEBUG_REDUCE
-                printf("Sum is: %f\n", sum);
-                printf("Element is: %f\n", arr2[i]);
-            #endif
+            atomicAdd(blockSums, (float)arr2[tid]);
         }
-    }
-    __syncthreads();
-
-    for(int s = blockDim.x / 2; s > 0; s >>= 1){
-        if(threadIdx.x < s){
-            sum += __shfl_down_sync(0xffffffff, sum, s);
-        }
-        __syncthreads();
-    }
-
-    // First thread in the block writes the sum to the blockSums array
-    if(threadIdx.x == 0){
-        blockSums[blockIdx.x] = sum;
     }
 }
 
@@ -257,7 +239,7 @@ int main() {
     int M1, M2;
     int A;
     //M1 = atoi(argv[1]);
-    M1 = 10;
+    M1 = 1000;
     M2 = M1 / 2;
     A = 100;
 
@@ -276,6 +258,9 @@ int main() {
     if (error != cudaSuccess) {
         printf("CUDA error: %s\n", cudaGetErrorString(error));
     }
+    double *arr1_host = (double*)malloc(M1 * sizeof(double));
+    double *arr2_host = (double*)malloc(M2 * sizeof(double));
+    double *arr2Copy_host = (double*)malloc(M2 * sizeof(double ));;
 
     #ifdef DEBUG
         double *arr1_host = (double*)malloc(M1 * sizeof(double));
@@ -294,7 +279,6 @@ int main() {
     }
     for(k = 0; k < 100; k++) {
         unsigned int seed = k;
-        float *sum = 0;
 
         // Arrays generation
         #ifdef DEBUG
@@ -389,28 +373,28 @@ int main() {
                 printf("- From host to device arr2copy\n");
         #endif
         // Stage 5 - Reduce
+        float sum = 0.0f;
+        float *deviceSum;
+        cudaMalloc((void**)&deviceSum, sizeof(float));
+
         #ifdef DEBUG
                 printf("> Stage 5 - Reduce \n");
         #endif
-        //
-        double min = arr2_host[0];
-        cudaMemcpyToSymbol(minValue, &min, sizeof(double));
-        if (error != cudaSuccess) {
-            printf("CUDA error cudaMemcpyToSymbol: %s\n", cudaGetErrorString(error));
-        }
-        reduceKernel<<<blocksPerGridArr2, threadsPerBlock>>>(arr2, M2, sum);
-        if (error != cudaSuccess) {
-            printf("CUDA error reduceKernel: %s\n", cudaGetErrorString(error));
-        }
+
+        cudaMemcpy(deviceSum, &sum, sizeof(float), cudaMemcpyHostToDevice);
+        reduceKernel<<<blocksPerGridArr2, threadsPerBlock>>>(arr2, M2, deviceSum);
         cudaDeviceSynchronize();
-        if (error != cudaSuccess) {
-            printf("CUDA error: %s\n", cudaGetErrorString(error));
-        }
+
+        float hostResult;
+        cudaMemcpy(&hostResult, deviceSum, sizeof(float), cudaMemcpyDeviceToHost);
+
         #ifdef DEBUG
                 printf("- Stage 5 - Reduce is done\n");
         #endif
 
-        printf("%f ", &sum);
+        cudaFree(deviceSum);
+        printf("%f ", hostResult);
+
     }
     cudaEventRecord(end);
     cudaEventSynchronize(end);
@@ -424,5 +408,6 @@ int main() {
 
     float milliseconds = 0;
     cudaEventElapsedTime(&milliseconds, start, end);
-    printf("Execution time of GPU: %f ms\n", milliseconds);
+    printf("\nExecution time of GPU: %f ms\n", milliseconds);
+    return 0;
 }
