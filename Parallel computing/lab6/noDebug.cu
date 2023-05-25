@@ -14,7 +14,7 @@ void print_arr(double *arr, int n){
 }
 
 __global__ void randomKernel(unsigned int seed, double *array, int n, int A, int option){
-    int tid = blockIdx.x;//blockIdx.x; // * blockDim.x + threadIdx.x;
+    int tid = blockIdx.x;//blockIdx.x * blockDim.x + threadIdx.x;
     curandState_t state;
 
     curand_init(seed, tid, 0, &state);
@@ -39,7 +39,7 @@ __global__ void randomKernel(unsigned int seed, double *array, int n, int A, int
 }
 
 __global__ void copyKernel(double *arr2, double *arr2Copy, int M2){
-    int tid =  blockIdx.x;//blockIdx.x; // * blockDim.x + threadIdx.x;
+    int tid =  blockIdx.x;//blockIdx.x * blockDim.x + threadIdx.x;
     if(tid < M2)
     {
         arr2Copy[tid] = arr2[tid];
@@ -47,7 +47,7 @@ __global__ void copyKernel(double *arr2, double *arr2Copy, int M2){
 }
 
 __global__ void mapSqrtCthKernel(double *arr1, int M1){
-    int tid =  blockIdx.x;//blockIdx.x; //* blockDim.x + threadIdx.x;
+    int tid =  blockIdx.x;//blockIdx.x * blockDim.x + threadIdx.x;
     if(tid < M1)
     {
         arr1[tid] = sqrt(cosh(arr1[tid] / sinh(arr1[tid])));
@@ -55,7 +55,7 @@ __global__ void mapSqrtCthKernel(double *arr1, int M1){
 }
 
 __global__ void mapPiCbrtKernel(double *arr2, double *arr2Copy, int M2){
-    int tid =  blockIdx.x; //blockIdx.x; // * blockDim.x + threadIdx.x;
+    int tid =  blockIdx.x; //blockIdx.x * blockDim.x + threadIdx.x;
     if(tid == 0)
     {
         arr2[tid] = cbrt(arr2[tid]*M_PI);
@@ -67,7 +67,7 @@ __global__ void mapPiCbrtKernel(double *arr2, double *arr2Copy, int M2){
 }
 
 __global__ void multiplayKenrel(double *arr1, double *arr2, int M2){
-    int tid =  blockIdx.x; //blockIdx.x; // * blockDim.x + threadIdx.x;
+    int tid =  blockIdx.x; //blockIdx.x * blockDim.x + threadIdx.x;
     if(tid < M2)
     {
         arr2[tid] = arr1[tid] * arr2[tid];
@@ -77,7 +77,7 @@ __global__ void multiplayKenrel(double *arr1, double *arr2, int M2){
 
 __global__ void reduceKernel(double *arr2, int M2, float *blockSums){
 
-    int tid = blockIdx.x;//threadIdx.x; // + blockIdx.x * blockDim.x;
+    int tid = blockIdx.x;//threadIdx.x + blockIdx.x * blockDim.x;
 
     if(tid < M2){
         if(((int)arr2[tid] / (int)arr2[0]) % 2 == 0)
@@ -114,7 +114,7 @@ int main(){
         printf("CUDA error: %s\n", cudaGetErrorString(error));
     }
 
-    int threadsPerBlock = 256;
+    int threadsPerBlock = 1024;
     int blocksPerGridArr1 = (M1 + threadsPerBlock - 1) / threadsPerBlock;
     int blocksPerGridArr2 = (M2 + threadsPerBlock - 1) / threadsPerBlock;
 
